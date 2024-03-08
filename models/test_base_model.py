@@ -2,7 +2,7 @@
 """Test cases for the base_model"""
 
 import unittest
-from ...models.base_model import BaseModel
+from base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
     """
@@ -10,7 +10,7 @@ class TestBaseModel(unittest.TestCase):
         self.demo_model = BaseModel()
     """
     def test_initials(self):
-        demo_model = BaseModel
+        demo_model = BaseModel()
         self.assertIsNotNone(demo_model.id)
         self.assertIsNotNone(demo_model.created_at)
         self.assertIsNotNone(demo_model.updated_at)
