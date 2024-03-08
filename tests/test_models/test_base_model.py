@@ -9,6 +9,7 @@ Tested methods:
 import unittest
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
@@ -41,6 +42,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(str(self.demo_model).startswith('[BaseModel]'))
         self.assertIn(str(self.demo_model.id), str(self.demo_model))
         self.assertIn(str(self.demo_model.__dict__), str(self.demo_model))
+
 
 if __name__ == "__main__":
     unittest.main()
