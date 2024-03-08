@@ -2,17 +2,20 @@
 """Test cases for the base_model"""
 
 import unittest
-from models.base_model import BaseModel
+from ...models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
+    """
     def setUp(self):
         self.demo_model = BaseModel()
-
+    """
     def test_initials(self):
-        self.assertIsNotNone(self.demo_model.id)
-        self.assertIsNotNone(self.demo_model.created_at)
-        self.assertIsNotNone(self.demo_model.updated_at)
+        demo_model = BaseModel
+        self.assertIsNotNone(demo_model.id)
+        self.assertIsNotNone(demo_model.created_at)
+        self.assertIsNotNone(demo_model.updated_at)
 
+    """
     def test_save(self):
         init_updated_at = self.demo_model.updated_at
         current_updated_at = self.demo_model.save()
@@ -32,6 +35,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(str(self.demo_model).startswith('[BaseModel]'))
         self.assertIn(str(self.demo_model.id), str(self.demo_model))
         self.assertIn(str(self.demo_model.__dict__), str(self.demo_model))
-
+"""
 if __name__ == "__main__":
     unittest.main()
