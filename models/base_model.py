@@ -1,7 +1,7 @@
 #!/usr/bin/python4
 """The base model of the AirBnB project"""
 
-import uuid.uuid
+from uuid import uuid4
 from datetime import datetime
 
 class BaseModel:
@@ -11,8 +11,7 @@ class BaseModel:
     """
 
     def __init__(self):
-    	"""Instantiating the BaseModel.
-        """
+        """Instantiating the BaseModel."""
         self.id = str(uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
@@ -21,7 +20,7 @@ class BaseModel:
         """prints customized string formated output"""
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-    
+
     def save(self):
         """would update the public instance attr 'updated_at'"""
         self.updated_at = datetime.utcnow()
