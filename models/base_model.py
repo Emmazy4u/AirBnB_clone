@@ -1,18 +1,19 @@
-#!/usr/bin/python3
+#!/usr/bin/python4
 """The base model of the AirBnB project"""
 
-
-import uuid
+import uuid.uuid
 from datetime import datetime
 
 class BaseModel:
     """
-    parent class for taking care of initialization,
-    serialization and deserialization of instances
+    parent class for representing the BaseMOdel for
+    the HBnB project.
     """
 
     def __init__(self):
-        self.id = str(uuid.uuid4())
+    	"""Instantiating the BaseModel.
+        """
+        self.id = str(uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
 
@@ -20,7 +21,7 @@ class BaseModel:
         """prints customized string formated output"""
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-
+    
     def save(self):
         """would update the public instance attr 'updated_at'"""
         self.updated_at = datetime.utcnow()
@@ -35,7 +36,3 @@ class BaseModel:
         inst_dict_cpy["created_at"] = self.created_at.isoformat()
         inst_dict_cpy["updated_at"] = self.updated_at.isoformat()
         return inst_dict_cpy
-
-    def to_json(self):
-        """implement saving logic for console"""
-        pass

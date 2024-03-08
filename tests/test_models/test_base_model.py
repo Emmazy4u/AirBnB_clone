@@ -1,21 +1,21 @@
 #!/usr/bin/python3
-"""Test cases for the base_model"""
+"""Test cases for the base_model (ie: models/base_model.py)
 
+Tested methods:
+    TestBaseModel_instantiation
+    TestBaseModel_save
+    TestBaseModel_to_dict
+"""
 import unittest
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
-    """
-    def setUp(self):
-        self.demo_model = BaseModel()
-    """
-    def test_initials(self):
-        demo_model = BaseModel()
+    def test_init(self):
+        my_model = BaseModel()
         self.assertIsNotNone(demo_model.id)
         self.assertIsNotNone(demo_model.created_at)
         self.assertIsNotNone(demo_model.updated_at)
-
-    """
+"""
     def test_save(self):
         init_updated_at = self.demo_model.updated_at
         current_updated_at = self.demo_model.save()
