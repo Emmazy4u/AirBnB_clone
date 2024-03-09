@@ -11,11 +11,22 @@ class BaseModel:
     the HBnB project.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Instantiating the BaseModel."""
         self.id = str(uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
+        if kwargs:
+            for key, val in kwargs.items():
+                if key == "updated_at" or key == "created_at":
+                    setattr(self, key, datetime.strptime(val, time_format))
+                elif key == "__class__":
+                    continue
+                else:
+                    setattr(self, key, val)
+        else:
+            self.id = str(uuid4())
 
     def __str__(self):
         """prints customized string formated output"""
