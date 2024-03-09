@@ -23,7 +23,7 @@ class BaseModel:
                     continue
                 else:
                     setattr(self, key, val)
-                    
+
         else:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
