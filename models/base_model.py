@@ -2,6 +2,7 @@
 """The base model of the AirBnB project"""
 
 from uuid import uuid4
+import models
 from datetime import datetime
 
 
@@ -13,9 +14,6 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instantiating the BaseModel."""
-        self.id = str(uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
         time_format = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
             for key, val in kwargs.items():
@@ -25,8 +23,12 @@ class BaseModel:
                     continue
                 else:
                     setattr(self, key, val)
+                    
         else:
             self.id = str(uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+        models.storage.new(self)
 
     def __str__(self):
         """prints customized string formated output"""
@@ -36,10 +38,11 @@ class BaseModel:
     def save(self):
         """would update the public instance attr 'updated_at'"""
         self.updated_at = datetime.utcnow()
+        models.storage.save()
 
     def to_dict(self):
         """
-        returns a dictionary containg keys/vaalues of __dict__
+        returns a dictionary containing keys/values of __dict__
         of the instance
         """
         inst_dict_cpy = self.__dict__.copy()
