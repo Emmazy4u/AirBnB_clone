@@ -2,6 +2,7 @@
 """Entry point of the command interpreter"""
 import cmd
 import shlex
+import sys
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
@@ -149,4 +150,10 @@ class HBNBCommand(cmd.Cmd):
 """
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    if len(sys.argv) > 1:
+        """Non-interactive mode: executes cmd from command-line args"""
+        console = HBNBCommand().cmdloop()
+        console.onecmd(" ".join(sys.argv[1:]))
+    else:
+        """Interactive mode: implements the console loop"""
+        HBNBCommand().cmdloop()
