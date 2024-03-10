@@ -104,6 +104,39 @@ class HBNBCommand(cmd.Cmd):
         else:
             for key, value in all_objs.items():
                 print(str(value))
+
+    def do_update(self, line):
+        """Updates an instance based on the class name and id"""
+        instance = FileStorage()
+        all_objs = instance.all()
+        valid_classes = HBNBCommand.available_classes
+        cmd_tokens_list = shlex.split(line)
+        tok_len = len(cmd_tokens_list)
+        if not cmd_tokens_list:
+            print('** class name missing **')
+        elif cmd_tokens_list[0] not in valid_classes:
+            print("** class doesn't exist **")
+        elif tok_len < 2:
+            print('** instance id missing **')
+        else:
+            class_name = cmd_tokens_list[0]
+            instance_id = cmd_tokens_list[1]
+            key = "{}.{}".format(class_name, instance_id)
+            if key not in all_objs.keys():
+                print('** no instance found **')
+            elif tok_len < 3:
+                print("** attribute name missing **")
+            elif tok_len < 4:
+                print("** value missing **")
+            else:
+                new_name = cmd_tokens_list[2]
+                new_value = cmd_tokens_list[3]
+                if new_name in ["created_at", "updated_at", "id"]:
+                    print("updating {} is not allowed".format(new_name))
+                else:
+                    new_instance = BaseModel()
+                    setattr(new_instance,new_name, new_value)
+                    new_instance.save()
 """
     def do_count(self, line):
         ...Counts the instances of a class...
@@ -113,29 +146,6 @@ class HBNBCommand(cmd.Cmd):
             if line == class_name:
                 counter += 1
         print(counter)
-
-    def do_update(self, line):
-        ...Updates an instance based on the class name and id...
-        args = shlex.split(line)
-        if not args:
-            print('** class name missing **')
-        elif args[0] not in storage.classes():
-            print("** class doesn't exist **")
-        elif len(args) < 2:
-            print('** instance id missing **')
-        else:
-            key = "{}.{}".format(args[0], args[1])
-            instances = storage.all()
-            if key not in instances:
-                print('** no instance found **')
-            elif len(args) < 4:
-                print("** attribute name missing **")
-            elif len(args) < 5:
-                print("** value missing **")
-            else:
-                instance = instances[key]
-                setattr(instance, args[2], eval(args[3]))
-                instance.save()
 """
 
 if __name__ == '__main__':
