@@ -16,9 +16,9 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, line):
-     """Exits the console upon EOF condition"""
-     print('exit')
-     return True
+        """Exits the console upon EOF condition"""
+        print('exit')
+        return True
 
     def default(self, line):
         """default setting for cmd module if input is not valid"""
@@ -30,7 +30,8 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel into the JSON file and prints the id"""
+        """Creates a new instance of BaseModel into
+        the JSON file and prints the id"""
         if not line:
             print("** class name missing **")
         elif line in HBNBCommand.available_classes:
@@ -135,8 +136,10 @@ class HBNBCommand(cmd.Cmd):
                     print("updating {} is not allowed".format(new_name))
                 else:
                     new_instance = BaseModel()
-                    setattr(new_instance,new_name, new_value)
+                    setattr(new_instance, new_name, new_value)
                     new_instance.save()
+
+
 """
     def do_count(self, line):
         ...Counts the instances of a class...
@@ -147,6 +150,7 @@ class HBNBCommand(cmd.Cmd):
                 counter += 1
         print(counter)
 """
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
