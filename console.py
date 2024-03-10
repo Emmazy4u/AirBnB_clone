@@ -2,7 +2,8 @@
 """Entry point of the command interpreter"""
 import cmd
 import shlex
-#from models import storage
+#from models.base_model import BaseModel
+#from models.engine import file_storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,16 +21,16 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """default setting for cmd module if input is not valid"""
-        print("invalid command: {}".format(line)
+        print("invalid command: {}".format(line))
         return False
 
     def emptyline(self):
         """Does nothing when space or ENTER is typed"""
         pass
 
-    def do_create(self, line):
+    # def do_create(self, line):
         """Creates a new instance of BaseModel and prints the id"""
-        if not line:
+        """if not line:
             print("** class name missing **")
         elif line not in storage.classes():
             print("** class doesn't exist **")
@@ -37,6 +38,7 @@ class HBNBCommand(cmd.Cmd):
             new_instance = storage.classes[line]()
             new_instance.save()
             print(new_instance.id)
+        """
 """
     def do_show(self, line):
         ....Prints the string representation of an instance...
