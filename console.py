@@ -2,12 +2,13 @@
 """Entry point of the command interpreter"""
 import cmd
 import shlex
-#from models.base_model import BaseModel
-#from models.engine import file_storage
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
+    available_classes = ["BaseModel", "FileStorage"]
 
     def do_quit(self, line):
         """Quit command to exit the program"""
@@ -28,64 +29,82 @@ class HBNBCommand(cmd.Cmd):
         """Does nothing when space or ENTER is typed"""
         pass
 
-    # def do_create(self, line):
-        """Creates a new instance of BaseModel and prints the id"""
-        """if not line:
+    def do_create(self, line):
+        """Creates a new instance of BaseModel into the JSON file and prints the id"""
+        if not line:
             print("** class name missing **")
-        elif line not in storage.classes():
-            print("** class doesn't exist **")
-        else:
-            new_instance = storage.classes[line]()
+        elif line in HBNBCommand.available_classes:
+            new_instance = BaseModel()
             new_instance.save()
             print(new_instance.id)
-        """
-"""
+        else:
+            print("** class doesn't exist **")
+
     def do_show(self, line):
-        ....Prints the string representation of an instance...
+        """Prints the string representation of an instance"""
+        valid_classes = HBNBCommand.available_classes
         if not line:
             print('** class name missing **')
         else:
-            args = shlex.split(line)
-            if args[0] not in storage.classes():
+            cmd_tokens_list = shlex.split(line)
+            if cmd_tokens_list[0] not in valid_classes:
                 print("** class doesn't exist **")
-            elif len(args) < 2:
+            elif len(cmd_tokens_list) < 2:
                 print('** instance id missing **')
             else:
-                key = "{}.{}".format(args[0], args[1])
-                instances = storage.all()
-                if key not in instances:
+                class_name = cmd_tokens_list[0]
+                instance_id = cmd_tokens_list[1]
+                key = "{}.{}".format(class_name, instance_id)
+                instance = FileStorage()
+                all_objs = instance.all()
+                if key not in all_objs.keys():
                     print('** no instance found **')
                 else:
-                    print(instances[key])
+                    print(all_objs[key])
 
     def do_destroy(self, line):
-        ...Deletes an instance based on the class name and id...
-        args = shlex.split(line)
-        if not args:
+        """Deletes an instance based on the class name and id"""
+        valid_classes = HBNBCommand.available_classes
+        if not line:
             print('** class name missing **')
-        elif args[0] not in storage.classes():
-            print("** class doesn't exist **")
-        elif len(args) < 2:
-            print('** instance id missing **')
         else:
-            key = "{}.{}".format(args[0], args[1])
-            instances = storage.all()
-            if key not in instances:
-                print('** no instance found **')
+            cmd_tokens_list = shlex.split(line)
+            if cmd_tokens_list[0] not in valid_classes:
+                print("** class doesn't exist **")
+            elif len(cmd_tokens_list) < 2:
+                print('** instance id missing **')
             else:
-                del instances[key]
-                storage.save()
+                class_name = cmd_tokens_list[0]
+                instance_id = cmd_tokens_list[1]
+                key = "{}.{}".format(class_name, instance_id)
+                instance = FileStorage()
+                all_objs = instance.all()
+                if key not in all_objs.keys():
+                    print('** no instance found **')
+                else:
+                    del all_objs[key]
+                    instance.save()
 
     def do_all(self, line):
-        ...Prints all string representations of all instances...
-        if not line or line not in storage.classes():
-            print("** class doesn't exist **")
+        """Prints all string representations of all instances"""
+        instance = FileStorage()
+        all_objs = instance.all()
+        valid_classes = HBNBCommand.available_classes
+        cmd_tokens_list = shlex.split(line)
+        if len(cmd_tokens_list) == 1:
+            if cmd_tokens_list[0] not in valid_classes:
+                print("** class doesn't exist **")
+            else:
+                """print a string rep. of the provided class"""
+                for key, value in all_objs.items():
+                    if key.split('.')[0] == cmd_tokens_list[0]:
+                        print(str(value))
+        elif len(cmd_tokens_list) > 1:
+            print("you entered too many arguments")
         else:
-            instances = storage.all()
-            f_instances = [str(value) for key, value in instances.items()
-                           if line in key]
-            print(f_instances)
-
+            for key, value in all_objs.items():
+                print(str(value))
+"""
     def do_count(self, line):
         ...Counts the instances of a class...
         counter = 0
