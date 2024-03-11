@@ -8,7 +8,7 @@ from datetime import datetime
 
 class BaseModel:
     """
-    parent class for representing the BaseMOdel for
+    parent class for representing the BaseModel for
     the HBnB project.
     """
 
