@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """creates a user class"""
-from models.base_model import Basemodel
+from models.base_model import BaseModel
 
 
 class User(BaseModel):
