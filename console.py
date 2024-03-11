@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
         elif line in HBNBCommand.available_classes:
-            new_instance = BaseModel()
+            new_instance = self.available_classes[line]()
             new_instance.save()
             print(new_instance.id)
         else:
