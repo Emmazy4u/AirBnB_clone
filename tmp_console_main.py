@@ -56,7 +56,8 @@ class HBNBCommand(cmd.Cmd):
                 class_name = cmd_tokens_list[0]
                 instance_id = cmd_tokens_list[1]
                 key = "{}.{}".format(class_name, instance_id)
-                all_objs = FileStorage().all()
+                instance = FileStorage()
+                all_objs = instance.all()
                 if key not in all_objs.keys():
                     print('** no instance found **')
                 else:
@@ -77,16 +78,18 @@ class HBNBCommand(cmd.Cmd):
                 class_name = cmd_tokens_list[0]
                 instance_id = cmd_tokens_list[1]
                 key = "{}.{}".format(class_name, instance_id)
-                all_objs = FileStorage().all()
+                instance = FileStorage()
+                all_objs = instance.all()
                 if key not in all_objs.keys():
                     print('** no instance found **')
                 else:
                     del all_objs[key]
-                    FileStorage().save()
+                    instance.save()
 
     def do_all(self, line):
         """Prints all string representations of all instances"""
-        all_objs = FileStorage().all()
+        instance = FileStorage()
+        all_objs = instance.all()
         valid_classes = HBNBCommand.available_classes
         cmd_tokens_list = shlex.split(line)
         if len(cmd_tokens_list) == 1:
@@ -105,7 +108,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Updates an instance based on the class name and id"""
-        all_objs = FileStorage().all()
+        instance = FileStorage()
+        all_objs = instance.all()
         valid_classes = HBNBCommand.available_classes
         cmd_tokens_list = shlex.split(line)
         tok_len = len(cmd_tokens_list)
@@ -135,6 +139,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(new_instance, new_name, new_value)
                     new_instance.save()
 
+
 """
     def do_count(self, line):
         ...Counts the instances of a class...
@@ -146,5 +151,12 @@ class HBNBCommand(cmd.Cmd):
         print(counter)
 """
 
+
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    if len(sys.argv) > 1:
+        """Non-interactive mode: executes cmd from command-line args"""
+        console = HBNBCommand().cmdloop()
+        console.onecmd(" ".join(sys.argv[1:]))
+    else:
+        """Interactive mode: implements the console loop"""
+        HBNBCommand().cmdloop()
