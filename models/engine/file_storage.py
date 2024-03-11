@@ -4,7 +4,12 @@ serialization and deserialization functions
 """
 
 from models.base_model import BaseModel
-# from models.user import User
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.place import Place
 import os
 import json
 
@@ -22,6 +27,16 @@ class FileStorage:
         """returns the __objects dictionary"""
         self.reload()
         return (FileStorage.__objects)
+
+    def classes(self):
+        """returns the dictionnary of available classes"""
+        return {"BaseModel": BaseModel,
+                "User": User,
+                "City": City,
+                "State": State,
+                "Place": Place,
+                "Review": Review
+                }
 
     def new(self, obj):
         """inputs obj into the __objects dictionary
