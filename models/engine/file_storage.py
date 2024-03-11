@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""Handlinon ; echo "" all the file storage requirements as well as
+"""Handling ; echo "" all the file storage requirements as well as
 serialization and deserialization functions
 """
 
 from models.base_model import BaseModel
+from models.user import user
 import os
 import json
 
