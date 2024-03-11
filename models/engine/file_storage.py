@@ -4,7 +4,7 @@ serialization and deserialization functions
 """
 
 from models.base_model import BaseModel
-from models.user import User
+# from models.user import User
 import os
 import json
 
@@ -15,7 +15,7 @@ class FileStorage:
     """
     # path to Jsonfile
     __file_path = "file.json"
-    # empty but stores all obj by <class name>.id
+    # empty but stores all obj by <class name>.<object_id>
     __objects = {}
 
     def all(self):
@@ -25,7 +25,7 @@ class FileStorage:
 
     def new(self, obj):
         """inputs obj into the __objects dictionary
-        using the format <obj class name>.id
+        using the format <obj class name>.<object_id>
         """
         # obtaining the class name
         cls_name_of_obj = obj.__class__.__name__
@@ -36,7 +36,6 @@ class FileStorage:
         """serializes __objects to the JSON
         file path: __file_path
         """
-
         temp_obj_bank = FileStorage.__objects
         obj_as_dict = {}  # initially empty
         for key in temp_obj_bank.keys():
