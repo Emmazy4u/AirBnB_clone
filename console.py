@@ -122,6 +122,7 @@ class HBNBCommand(cmd.Cmd):
         valid_classes = HBNBCommand.available_classes
         cmd_tokens_list = shlex.split(line)
         tok_len = len(cmd_tokens_list)
+
         if not cmd_tokens_list:
             print('** class name missing **')
         elif cmd_tokens_list[0] not in valid_classes:
@@ -132,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = cmd_tokens_list[0]
             instance_id = cmd_tokens_list[1]
             key = "{}.{}".format(class_name, instance_id)
+
             if key not in all_objs.keys():
                 print('** no instance found **')
             elif tok_len < 3:
@@ -139,14 +141,14 @@ class HBNBCommand(cmd.Cmd):
             elif tok_len < 4:
                 print("** value missing **")
             else:
+                obj_to_update = all_objs[key]
                 new_name = cmd_tokens_list[2]
                 new_value = cmd_tokens_list[3]
                 if new_name in ["created_at", "updated_at", "id"]:
                     print("updating {} is not allowed".format(new_name))
                 else:
-                    new_instance = BaseModel()
-                    setattr(new_instance, new_name, new_value)
-                    new_instance.save()
+                    setattr(obj_to_update, new_name, new_value)
+                    obj_to_update.save()
 
 """
     def do_count(self, line):
