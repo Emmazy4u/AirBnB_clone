@@ -150,6 +150,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj_to_update, new_name, new_value)
                     obj_to_update.save()
 
+
 """
     def do_count(self, line):
         ...Counts the instances of a class...
