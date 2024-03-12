@@ -57,6 +57,9 @@ class FileStorage:
             obj_as_dict[key] = temp_obj_bank[key].to_dict()
         with open(FileStorage.__file_path, "w", encoding="utf-8") as json_file:
             json.dump(obj_as_dict, json_file)
+        if not os.path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "a"):
+                os.utime(FileStorage.__file_path, None)
 
     def reload(self):
         """deserializes the JSON file to __objects if the __file_path exist,
