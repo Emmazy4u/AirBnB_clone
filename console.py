@@ -150,16 +150,15 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj_to_update, new_name, new_value)
                     obj_to_update.save()
 
-"""
     def do_count(self, line):
-        ...Counts the instances of a class...
+        """Counts the instances of a class"""
         counter = 0
         for key in storage.all().keys():
             class_name, instance_id = key.split('.')
             if line == class_name:
                 counter += 1
         print(counter)
-"""
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
